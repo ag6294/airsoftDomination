@@ -18,8 +18,6 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<Auth>(
           create: (_) => Auth(),
-
-  
         ),
         ChangeNotifierProxyProvider<Auth, Game>(create: (context) {
           print('Create game provider');
