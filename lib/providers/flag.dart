@@ -40,7 +40,8 @@ class Flag with ChangeNotifier {
   }
 
   bool get isConquered {
-    if (factionConqueringID == null && lastConquerorFactionId == null) return false;
+    if (factionConqueringID == null && lastConquerorFactionId == null)
+      return false;
     return endConquering.isBefore(DateTime.now());
   }
 
@@ -52,6 +53,9 @@ class Flag with ChangeNotifier {
   Future<void> stopCapture() async {
     try {
       await DB.Firebase.stopCapture(gameId, id);
+      await DB.Firebase.sendGameNotification(gameId,
+          title: 'Interruzione conquista',
+          bodyMessage: 'La conquista del punto $name è stata interrotta');
     } catch (error) {
       throw error;
     }
@@ -71,6 +75,10 @@ class Flag with ChangeNotifier {
 
     try {
       await DB.Firebase.startCapture(this, factionID, factionName);
+      await DB.Firebase.sendGameNotification(gameId,
+          title: 'Inizio conquista',
+          bodyMessage:
+              'La fazione $factionName ha iniziato a conquistare il punto $name');
     } catch (error) {
       startConquering = null;
       throw error;

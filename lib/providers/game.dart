@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
+
 import './flag.dart';
 import './mock.dart';
 import '../utils/firebase.dart' as DB;
@@ -65,14 +67,35 @@ class Game with ChangeNotifier {
   }
 
   void setNewGame(String newGameId, String newGameName) {
+    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
+    if (_gameId != null) _firebaseMessaging.unsubscribeFromTopic(_gameId);
     _gameId = newGameId;
     _gameName = newGameName;
     _flags = [];
+
+    _firebaseMessaging.requestNotificationPermissions();
+    _firebaseMessaging.configure(
+      onLaunch: (notification) {
+        print(notification);
+        return;
+      },
+      onResume: (notification) {
+        print(notification);
+        return;
+      },
+      onMessage: (notification) {
+        print(notification);
+        refreshFlags();
+        return;
+      },
+    );
+    _firebaseMessaging.subscribeToTopic(_gameId);
   }
 
   Future<void> fetchFlags() async {
     if (flags.isNotEmpty) return;
-    
+
     print('[GameProvider] Loading $gameName');
     try {
       _flags = await DB.Firebase.fetchFlags(gameId);

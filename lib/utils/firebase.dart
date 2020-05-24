@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../providers/flag.dart';
 import './http_exception.dart';
@@ -151,5 +152,60 @@ class Firebase {
     }
 
     return _games;
+  }
+
+  static Future<void> sendGameNotification(String gameId,
+      {String bodyMessage, String title}) async {
+    final String serverToken =
+        'AAAAUjxSYw8:APA91bFkCyC6pp_okaIVNo1q3dK-e3xO8uPd3vGD5-WQRxAazptzwRcF8i1Wh83P9LnDyqoVah632oSFc0xUqlI6ZSfMSabcR45n0kC5jZag_w9p-CbMOvALWhGNj5roWgErCEHZLV_Z';
+    final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
+
+    await firebaseMessaging.requestNotificationPermissions(
+      const IosNotificationSettings(
+          sound: true, badge: true, alert: true, provisional: false),
+    );
+
+    firebaseMessaging.subscribeToTopic(gameId);
+
+    final response = await http.post(
+      'https://fcm.googleapis.com/fcm/send',
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'key=$serverToken',
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          // 'to': await firebaseMessaging.getToken(),
+          'condition': '\'$gameId\' in topics',
+          'notification': <String, dynamic> {
+            'body': bodyMessage != null
+                ? bodyMessage
+                : 'C\'è stato un aggiornamento',
+            'title': title != null ? title : 'Aggiornamento'
+          },
+          'priority': 'high',
+          'data': <String, dynamic>{
+            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+            'id': '1',
+            'status': 'done'
+          },
+        },
+      ),
+    );
+
+    // print(response.body);
+
+    // final Completer<Map<String, dynamic>> completer =
+    //     Completer<Map<String, dynamic>>();
+
+    // firebaseMessaging.configure(
+    //   onMessage: (Map<String, dynamic> message) async {
+    //     completer.complete(message);
+    //   },
+    // );
+
+    // return completer.future;
+
+    return null;
   }
 }

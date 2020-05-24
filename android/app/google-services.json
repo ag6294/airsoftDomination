@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "353199350543",
+    "firebase_url": "https://airsoft-domation-svil.firebaseio.com",
+    "project_id": "airsoft-domation-svil",
+    "storage_bucket": "airsoft-domation-svil.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:353199350543:android:ec19b45d5721e82a56947a",
+        "android_client_info": {
+          "package_name": "com.guardianidelpo.airsoft_domination"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "353199350543-q7rqdvajadptl7tdvhrjhefacvd4hdr2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVweQIOeTB7CADGD25bu6Dps7-iDjYlXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "353199350543-q7rqdvajadptl7tdvhrjhefacvd4hdr2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'package:flutter/material.dart';
 
 import '../models/player.dart';
 import './mock.dart';
-
 import '../utils/firebase.dart' as DB;
 
 class Auth with ChangeNotifier {
@@ -14,6 +14,7 @@ class Auth with ChangeNotifier {
   bool _isGameMaster = false;
 
   Map<String, Map<String, dynamic>> _availableGames;
+
 
   /*If i already got available games I update in background, otherwise I wait for them to load */
   Future<Map<String, Map<String, dynamic>>> get availableGames async {
