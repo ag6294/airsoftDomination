@@ -1,3 +1,4 @@
+import 'package:airsoft_domination/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,11 +32,12 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
-            primarySwatch: Colors.lime,
+            primarySwatch: ThemeUtils.rangerGreen,
             fontFamily: GoogleFonts.lato().fontFamily,
             textTheme: GoogleFonts.latoTextTheme(
               Theme.of(context).textTheme,
             ),
+            primaryColorBrightness: Brightness.dark,
           ),
           home: DominationRoute(),
           routes: {
@@ -46,3 +48,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+

@@ -45,13 +45,16 @@ class _FlagTileState extends State<FlagTile> {
         content: Text('Sei sicuro?'),
         actions: <Widget>[
           FlatButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text('Conferma'),
-          ),
-          FlatButton(
             onPressed: () => Navigator.of(context).pop(false),
             child: Text('Annulla'),
-          )
+          ),
+          FlatButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(
+              'Conferma',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
         ],
       ),
     );
@@ -92,13 +95,16 @@ class _FlagTileState extends State<FlagTile> {
         content: Text('Sei sicuro?'),
         actions: <Widget>[
           FlatButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text('Conferma'),
-          ),
-          FlatButton(
             onPressed: () => Navigator.of(context).pop(false),
             child: Text('Annulla'),
-          )
+          ),
+          FlatButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(
+              'Conferma',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
         ],
       ),
     );

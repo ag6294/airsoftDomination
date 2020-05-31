@@ -14,6 +14,13 @@ class _FlagsListState extends State<FlagsList> {
   void initState() {
     super.initState();
   }
+  @override
+  void didChangeDependencies() {
+    setState(() {
+      
+    });
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {

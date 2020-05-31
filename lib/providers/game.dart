@@ -91,6 +91,7 @@ class Game with ChangeNotifier {
       },
     );
     _firebaseMessaging.subscribeToTopic(_gameId);
+    notifyListeners();
   }
 
   Future<void> fetchFlags() async {
@@ -119,5 +120,18 @@ class Game with ChangeNotifier {
     } finally {
       notifyListeners();
     }
+  }
+
+  void leaveGame() {
+    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
+    if (_gameId != null) _firebaseMessaging.unsubscribeFromTopic(_gameId);
+
+    _gameName = null;
+    _gameId = null;
+
+    _flags = [];
+
+    notifyListeners();
   }
 }

@@ -62,7 +62,10 @@ class _SettingsRouteState extends State<SettingsRoute> {
                   if (_formKey.currentState.validate())
                     return Navigator.of(context).pop(true);
                 },
-                child: Text('Conferma'),
+                child: Text(
+                  'Conferma',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               )
             ],
           );
@@ -127,7 +130,10 @@ class _SettingsRouteState extends State<SettingsRoute> {
                   if (_formKey.currentState.validate())
                     return Navigator.of(context).pop(true);
                 },
-                child: Text('Conferma'),
+                child: Text(
+                  'Conferma',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               )
             ],
           );
@@ -186,7 +192,7 @@ class _SettingsRouteState extends State<SettingsRoute> {
                       ),
                       TextFormField(
                         obscureText: true,
-                        autofocus: true,
+                        // autofocus: true,
                         decoration: new InputDecoration(
                           labelText: 'Password della giocata',
                         ),
@@ -212,7 +218,10 @@ class _SettingsRouteState extends State<SettingsRoute> {
                   if (_formKey.currentState.validate())
                     return Navigator.of(context).pop(true);
                 },
-                child: Text('Conferma'),
+                child: Text(
+                  'Conferma',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               )
             ],
           );
@@ -238,7 +247,7 @@ class _SettingsRouteState extends State<SettingsRoute> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<Auth>(context, listen: false);
-    final gameProvider = Provider.of<Game>(context, listen: false);
+    final gameProvider = Provider.of<Game>(context);
 
     return FutureBuilder<Map<String, Map<String, dynamic>>>(
       future: authProvider.availableGames,
@@ -249,8 +258,8 @@ class _SettingsRouteState extends State<SettingsRoute> {
         body: snapshot.connectionState != ConnectionState.done
             ? Center(child: CircularProgressIndicator())
             : Container(
+                height: MediaQuery.of(context).size.height,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     if (gameProvider.gameId != null)
                       Container(
@@ -319,7 +328,31 @@ class _SettingsRouteState extends State<SettingsRoute> {
                         ),
                         // IconButton(icon: Icon(Icons.save), onPressed: null)
                       ],
-                    )
+                    ),
+                    // SizedBox.expand(),
+                    Spacer(),
+                    if (gameProvider.gameId != null)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 10),
+                        child: FlatButton(
+                          onPressed: () {
+                            gameProvider.leaveGame();
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Icon(Icons.exit_to_app),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text('Lascia la giocata',
+                                  style: TextStyle(
+                                      color: Theme.of(context).accentColor))
+                            ],
+                          ),
+                        ),
+                      )
                   ],
                 ),
               ),
