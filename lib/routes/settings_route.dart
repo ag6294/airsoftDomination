@@ -336,8 +336,33 @@ class _SettingsRouteState extends State<SettingsRoute> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 20, horizontal: 10),
                         child: FlatButton(
-                          onPressed: () {
-                            gameProvider.leaveGame();
+                          onPressed: () async {
+                            var confirm = false;
+                            confirm = await showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text('Attenzione'),
+                                content: Text('Sei sicuro?'),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(false),
+                                    child: Text('Annulla'),
+                                  ),
+                                  FlatButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(true),
+                                    child: Text(
+                                      'Conferma',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+
+                            if (confirm) gameProvider.leaveGame();
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,

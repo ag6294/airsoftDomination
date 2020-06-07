@@ -45,7 +45,10 @@ class Game with ChangeNotifier {
       gameId: gameId,
       id: flagId,
       name: flag.name,
+      isConquerable: flag.isConquerable,
       conquerMinutes: flag.conquerMinutes,
+      lat: flag.lat,
+      long: flag.long,
     ));
 
     notifyListeners();

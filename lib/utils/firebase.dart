@@ -16,7 +16,10 @@ class Firebase {
       url,
       body: json.encode({
         'name': flag.name,
+        'isConquerable': flag.isConquerable,
         'conquerMinutes': flag.conquerMinutes,
+        'lat': flag.lat,
+        'long': flag.long,
       }),
     );
 
@@ -46,6 +49,9 @@ class Firebase {
     DateTime startConquering;
     String lastConquerorFactionId;
     String lastConquerorFactionName;
+    bool isConquerable;
+    double lat;
+    double long;
 
     try {
       final response = await http.get(url);
@@ -66,16 +72,23 @@ class Firebase {
               : DateTime.tryParse(flag['startConquering']);
           lastConquerorFactionId = flag['lastConquerorFactionId'];
           lastConquerorFactionName = flag['lastConquerorFactionName'];
+          lat = flag['lat'];
+          long = flag['long'];
+          isConquerable = flag['isConquerable'];
           _flags.add(Flag(
-              gameId: gameId,
-              id: id,
-              name: name,
-              conquerMinutes: conquerMinutes,
-              factionConqueringID: factionConqueringID,
-              factionConqueringName: factionConqueringName,
-              startConquering: startConquering,
-              lastConquerorFactionId: lastConquerorFactionId,
-              lastConquerorFactionName: lastConquerorFactionName));
+            gameId: gameId,
+            id: id,
+            name: name,
+            isConquerable: isConquerable,
+            conquerMinutes: conquerMinutes,
+            factionConqueringID: factionConqueringID,
+            factionConqueringName: factionConqueringName,
+            startConquering: startConquering,
+            lastConquerorFactionId: lastConquerorFactionId,
+            lastConquerorFactionName: lastConquerorFactionName,
+            lat: lat,
+            long: long,
+          ));
         });
       }
     } catch (error) {
@@ -177,7 +190,7 @@ class Firebase {
         <String, dynamic>{
           // 'to': await firebaseMessaging.getToken(),
           'condition': '\'$gameId\' in topics',
-          'notification': <String, dynamic> {
+          'notification': <String, dynamic>{
             'body': bodyMessage != null
                 ? bodyMessage
                 : 'C\'è stato un aggiornamento',
