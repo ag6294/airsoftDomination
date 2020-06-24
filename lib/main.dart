@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import './utils/theme.dart';
 import './routes/domination_route.dart';
 import './routes/settings_route.dart';
 import './routes/edit_flags.dart';
 
 import './providers/auth.dart';
-import './providers/game.dart';
+import './providers/current_game.dart';
+import './providers/location.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,23 +21,27 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<Auth>(
           create: (_) => Auth(),
         ),
-        ChangeNotifierProxyProvider<Auth, Game>(create: (context) {
+        ChangeNotifierProvider<UserLocation>(
+            create: (_) => UserLocation()),
+        ChangeNotifierProxyProvider<Auth, CurrentGame>(create: (context) {
           print('Create game provider');
-          return Game();
+          return CurrentGame();
         }, update: (context, authProvider, prevGameProvider) {
           print(
               'Update proxy game provider with user ${authProvider.loggedPlayer.nickname}');
-          return Game.update(authProvider.loggedPlayer, prevGameProvider);
+          return CurrentGame.update(
+              authProvider.loggedPlayer, prevGameProvider);
         }),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
-            primarySwatch: Colors.lime,
+            primarySwatch: ThemeUtils.rangerGreen,
             fontFamily: GoogleFonts.lato().fontFamily,
             textTheme: GoogleFonts.latoTextTheme(
               Theme.of(context).textTheme,
             ),
+            primaryColorBrightness: Brightness.dark,
           ),
           home: DominationRoute(),
           routes: {

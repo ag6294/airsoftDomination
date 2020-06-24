@@ -9,7 +9,12 @@ class Flag with ChangeNotifier {
   final String gameId;
   final String id;
   final String name;
+  final bool isConquerable;
   final int conquerMinutes;
+
+  double lat;
+  double long;
+  // final bool isConquerable;
   String factionConqueringID;
   String factionConqueringName;
   String lastConquerorFactionId;
@@ -18,16 +23,21 @@ class Flag with ChangeNotifier {
 
   DateTime creationTime = DateTime.now();
 
-  Flag(
-      {@required this.gameId,
-      @required this.id,
-      @required this.name,
-      @required this.conquerMinutes,
-      this.factionConqueringID,
-      this.factionConqueringName,
-      this.startConquering,
-      this.lastConquerorFactionId,
-      this.lastConquerorFactionName});
+  Flag({
+    @required this.gameId,
+    @required this.id,
+    @required this.name,
+    @required this.isConquerable,
+    @required this.conquerMinutes,
+    // @required this.isConquerable,
+    this.factionConqueringID,
+    this.factionConqueringName,
+    this.startConquering,
+    this.lastConquerorFactionId,
+    this.lastConquerorFactionName,
+    this.lat,
+    this.long,
+  });
 
   DateTime get endConquering {
     return startConquering != null
