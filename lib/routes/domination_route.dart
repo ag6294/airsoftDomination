@@ -5,7 +5,7 @@ import '../widgets/flags_list.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/map_view.dart';
 import '../providers/auth.dart';
-import '../providers/game.dart';
+import '../providers/current_game.dart';
 import '../routes/edit_flags.dart';
 
 class DominationRoute extends StatefulWidget {
@@ -38,7 +38,7 @@ class _DominationRouteState extends State<DominationRoute> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<Auth>(context, listen: false);
-    final gameProvider = Provider.of<Game>(context, listen: false);
+    final gameProvider = Provider.of<CurrentGame>(context, listen: false);
 
     return WillPopScope(
       onWillPop: () async => false,
@@ -60,7 +60,7 @@ class _DominationRouteState extends State<DominationRoute> {
             ? FutureBuilder(
                 future: gameProvider.fetchFlags(),
                 builder: (ctx, snapshot) =>
-                    snapshot.connectionState == ConnectionState.waiting
+                    snapshot.connectionState != ConnectionState.done
                         ? Center(child: CircularProgressIndicator())
                         : RefreshIndicator(
                             onRefresh: gameProvider.refreshFlags,

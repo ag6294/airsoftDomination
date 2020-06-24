@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:location/location.dart';
 
-import '../providers/game.dart';
+import '../providers/current_game.dart';
 import '../providers/flag.dart';
 import '../widgets/new_flag_form.dart';
 import '../utils/location.dart';
@@ -34,7 +34,7 @@ class _FlagsEditList extends StatefulWidget {
 class __FlagsEditListState extends State<_FlagsEditList> {
   @override
   Widget build(BuildContext context) {
-    final gameProvider = Provider.of<Game>(context);
+    final gameProvider = Provider.of<CurrentGame>(context);
     final flags = gameProvider.flags;
 
     return flags.length > 0
@@ -54,7 +54,7 @@ class __FlagsEditListState extends State<_FlagsEditList> {
 class _FlagListTile extends StatelessWidget {
   final String flagId;
   final String flagName;
-  final Game gameProvider;
+  final CurrentGame gameProvider;
 
   _FlagListTile(this.flagId, this.flagName, this.gameProvider);
 

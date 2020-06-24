@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:utm/utm.dart';
 
 import '../providers/flag.dart';
-import '../providers/game.dart';
+import '../providers/current_game.dart';
 import '../utils/location.dart';
 
 class NewFlagForm extends StatefulWidget {
@@ -63,7 +63,7 @@ class NewFlagFormState extends State<NewFlagForm> {
         setState(() {
           isLoading = true;
         });
-        await Provider.of<Game>(context, listen: false).addFlag(_flag);
+        await Provider.of<CurrentGame>(context, listen: false).addFlag(_flag);
         Navigator.of(context).pop();
       } catch (error) {
         showDialog(
@@ -219,7 +219,7 @@ class NewFlagFormState extends State<NewFlagForm> {
                         Expanded(
                           flex: 1,
                           child: TextFormField(
-                             key: ValueKey('utmZone'),
+                            key: ValueKey('utmZone'),
                             decoration: InputDecoration(
                               labelText: 'Zona',
                             ),
@@ -301,7 +301,7 @@ class NewFlagFormState extends State<NewFlagForm> {
                         SizedBox(width: 20),
                         Expanded(
                           child: TextFormField(
-                             key: ValueKey('utmNorth'),
+                            key: ValueKey('utmNorth'),
                             decoration: InputDecoration(
                               labelText: 'NORD',
                             ),
@@ -341,7 +341,7 @@ class NewFlagFormState extends State<NewFlagForm> {
                       Row(children: [
                         Expanded(
                           child: TextFormField(
- key: ValueKey('lat'),
+                            key: ValueKey('lat'),
                             decoration: InputDecoration(
                               labelText: 'Latitudine',
                             ),
@@ -376,7 +376,7 @@ class NewFlagFormState extends State<NewFlagForm> {
                         SizedBox(width: 20),
                         Expanded(
                           child: TextFormField(
-                             key: ValueKey('long'),
+                            key: ValueKey('long'),
                             decoration: InputDecoration(
                               labelText: 'Longitudine',
                             ),
@@ -411,14 +411,27 @@ class NewFlagFormState extends State<NewFlagForm> {
                     Container(
                       margin: EdgeInsets.all(0),
                       alignment: Alignment(1, 0),
-                      child: FlatButton(
-                        onPressed: () => _saveForm(context),
-                        child: Text(
-                          'Salva',
-                          style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                              fontWeight: FontWeight.bold),
-                        ),
+                      child: Row(
+                        children: <Widget>[
+                          FlatButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: Text(
+                              'Annulla',
+                              style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () => _saveForm(context),
+                            child: Text(
+                              'Salva',
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
                       ),
                     )
                   ],

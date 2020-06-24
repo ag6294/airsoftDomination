@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/game.dart';
+import '../providers/current_game.dart';
 import '../providers/flag.dart';
 import './flag_tile.dart';
 
@@ -24,7 +24,7 @@ class _FlagsListState extends State<FlagsList> {
 
   @override
   Widget build(BuildContext context) {
-    final gameProvider = Provider.of<Game>(context);
+    final gameProvider = Provider.of<CurrentGame>(context);
     final flags = gameProvider.flags.where((e) => e.isConquerable == null ? true : e.isConquerable).toList();
 
     return ListView.builder(

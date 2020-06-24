@@ -9,7 +9,7 @@ import './flag.dart';
 import './mock.dart';
 import '../utils/firebase.dart' as DB;
 
-class Game with ChangeNotifier {
+class CurrentGame with ChangeNotifier {
   Player _loggedPlayer;
 
   String _gameName;
@@ -17,9 +17,11 @@ class Game with ChangeNotifier {
 
   List<Flag> _flags = [];
 
-  Game();
 
-  Game.update(Player loggedPlayer, Game prevGame) {
+
+  CurrentGame();
+
+  CurrentGame.update(Player loggedPlayer, CurrentGame prevGame) {
     _loggedPlayer = loggedPlayer;
     _gameId = prevGame.gameId;
     _gameName = prevGame.gameName;
@@ -128,6 +130,7 @@ class Game with ChangeNotifier {
   void leaveGame() {
     final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
+    _firebaseMessaging.deleteInstanceID();
     if (_gameId != null) _firebaseMessaging.unsubscribeFromTopic(_gameId);
 
     _gameName = null;

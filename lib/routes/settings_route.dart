@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth.dart';
-import '../providers/game.dart';
+import '../providers/current_game.dart';
 
 import '../widgets/app_drawer.dart';
 
@@ -15,7 +15,7 @@ class SettingsRoute extends StatefulWidget {
 
 class _SettingsRouteState extends State<SettingsRoute> {
   void _showAdminLogin(
-      BuildContext context, Auth authProvider, Game gameProvider) async {
+      BuildContext context, Auth authProvider, CurrentGame gameProvider) async {
     if (authProvider.isAdmin) {
       setState(
         () {
@@ -83,7 +83,7 @@ class _SettingsRouteState extends State<SettingsRoute> {
   }
 
   void _showGMLogin(
-      BuildContext context, Auth authProvider, Game gameProvider) async {
+      BuildContext context, Auth authProvider, CurrentGame gameProvider) async {
     if (authProvider.isGameMaster) {
       setState(
         () {
@@ -151,7 +151,7 @@ class _SettingsRouteState extends State<SettingsRoute> {
   }
 
   void _showGameLogin(BuildContext context, Auth authProvider,
-      Game gameProvider, String gameId, String gameName) async {
+      CurrentGame gameProvider, String gameId, String gameName) async {
     if (gameId == gameProvider.gameId) {
     } else {
       String factionId;
@@ -247,7 +247,7 @@ class _SettingsRouteState extends State<SettingsRoute> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<Auth>(context, listen: false);
-    final gameProvider = Provider.of<Game>(context);
+    final gameProvider = Provider.of<CurrentGame>(context);
 
     return FutureBuilder<Map<String, Map<String, dynamic>>>(
       future: authProvider.availableGames,
